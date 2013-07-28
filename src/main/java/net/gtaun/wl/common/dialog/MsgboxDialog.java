@@ -16,7 +16,6 @@ package net.gtaun.wl.common.dialog;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.AbstractMsgboxDialog;
-import net.gtaun.shoebill.event.dialog.DialogResponseEvent;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
@@ -45,14 +44,9 @@ public class MsgboxDialog extends AbstractMsgboxDialog
 	}
 	
 	@Override
-	protected void onDialogResponse(DialogResponseEvent event)
+	protected void onClickCancel()
 	{
-		if (event.getDialogResponse() == 0)
-		{
-			player.playSound(1084, player.getLocation());
-			showParentDialog();
-		}
-		
-		super.onDialogResponse(event);
+		player.playSound(1084, player.getLocation());
+		showParentDialog();
 	}
 }
