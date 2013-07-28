@@ -32,9 +32,8 @@ public class MsgboxDialog extends AbstractMsgboxDialog
 	public MsgboxDialog(Player player, Shoebill shoebill, EventManager rootEventManager, AbstractDialog parentDialog, String caption, String message)
 	{
 		super(player, shoebill, rootEventManager, parentDialog);
+		this.caption = caption;
 		this.message = message;
-		
-		setCaption(caption);
 	}
 	
 	@Override
