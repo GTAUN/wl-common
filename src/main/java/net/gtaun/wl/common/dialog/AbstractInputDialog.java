@@ -7,6 +7,9 @@ import net.gtaun.util.event.EventManager;
 
 public class AbstractInputDialog extends net.gtaun.shoebill.common.dialog.AbstractInputDialog
 {
+	protected String append;
+	
+	
 	public AbstractInputDialog(Player player, Shoebill shoebill, EventManager rootEventManager)
 	{
 		super(player, shoebill, rootEventManager);
@@ -45,6 +48,12 @@ public class AbstractInputDialog extends net.gtaun.shoebill.common.dialog.Abstra
 	public AbstractInputDialog(Player player, Shoebill shoebill, EventManager rootEventManager, String caption, String message, boolean passwordMode, AbstractDialog parentDialog)
 	{
 		super(player, shoebill, rootEventManager, caption, message, passwordMode, parentDialog);
+	}
+	
+	protected void show(String text)
+	{
+		if (append != null) super.show(this.message + "\n\n" + append);
+		else super.show(text);
 	}
 	
 	@Override
