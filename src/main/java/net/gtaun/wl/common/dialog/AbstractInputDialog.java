@@ -27,7 +27,7 @@ public class AbstractInputDialog extends net.gtaun.shoebill.common.dialog.Abstra
 	
 	public AbstractInputDialog(Player player, Shoebill shoebill, EventManager rootEventManager, AbstractDialog parentDialog, boolean passwordMode)
 	{
-		super(player, shoebill, rootEventManager, passwordMode, parentDialog);
+		super(player, shoebill, rootEventManager, parentDialog, passwordMode);
 	}
 
 	public AbstractInputDialog(Player player, Shoebill shoebill, EventManager rootEventManager, String caption, String message)
@@ -37,7 +37,7 @@ public class AbstractInputDialog extends net.gtaun.shoebill.common.dialog.Abstra
 
 	public AbstractInputDialog(Player player, Shoebill shoebill, EventManager rootEventManager, AbstractDialog parentDialog, String caption, String message)
 	{
-		super(player, shoebill, rootEventManager, caption, message, parentDialog);
+		super(player, shoebill, rootEventManager, parentDialog, caption, message);
 	}
 
 	public AbstractInputDialog(Player player, Shoebill shoebill, EventManager rootEventManager, String caption, String message, boolean passwordMode)
@@ -47,7 +47,7 @@ public class AbstractInputDialog extends net.gtaun.shoebill.common.dialog.Abstra
 	
 	public AbstractInputDialog(Player player, Shoebill shoebill, EventManager rootEventManager, AbstractDialog parentDialog, String caption, String message, boolean passwordMode)
 	{
-		super(player, shoebill, rootEventManager, caption, message, passwordMode, parentDialog);
+		super(player, shoebill, rootEventManager, parentDialog, caption, message, passwordMode);
 	}
 	
 	protected void show(String text)
