@@ -32,7 +32,7 @@ public final class TextDrawUtils
 		int lines = Math.round((h - 5) / 5.0f);
 		PlayerTextdraw textdraw = f.createPlayerTextdraw(player, x+4, (y-50)/1.075f+50, StringUtils.repeat("~n~", lines));
 		textdraw.setUseBox(true);
-		textdraw.setLetterSize(1.0f, 0.5f);
+		textdraw.setLetterSize(0.1f, 0.5f);
 		textdraw.setTextSize(x+w-4, h-7);
 		return textdraw;
 	}
