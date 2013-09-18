@@ -6,7 +6,7 @@ public final class DialogUtils
 {
 	public static String rightPad(String str, int size, int tabSize)
 	{
-		return str + StringUtils.repeat('\t', (size - str.length()) / tabSize);
+		return str + StringUtils.repeat('\t', (size - str.length() + (tabSize-1)) / tabSize);
 	}
 	
 	private DialogUtils()
