@@ -26,9 +26,9 @@ import net.gtaun.util.event.EventManager;
 
 public class MsgboxDialog extends AbstractMsgboxDialog
 {
-	private final String message;
+	protected String message;
 	
-	
+
 	public MsgboxDialog(Player player, Shoebill shoebill, EventManager rootEventManager, String caption, String message)
 	{
 		this(player, shoebill, rootEventManager, null, caption, message);
@@ -39,6 +39,16 @@ public class MsgboxDialog extends AbstractMsgboxDialog
 		super(player, shoebill, rootEventManager, parentDialog);
 		this.caption = caption;
 		this.message = message;
+	}
+	
+	public MsgboxDialog(Player player, Shoebill shoebill, EventManager rootEventManager)
+	{
+		this(player, shoebill, rootEventManager, null);
+	}
+	
+	public MsgboxDialog(Player player, Shoebill shoebill, EventManager rootEventManager, AbstractDialog parentDialog)
+	{
+		super(player, shoebill, rootEventManager, parentDialog);
 	}
 	
 	@Override
