@@ -42,6 +42,18 @@ public final class TextDrawUtils
 		return textdraw;
 	}
 	
+	public static String convertCharacters(String src)
+	{
+		String dest = src;
+		dest = dest.replace('Ä', 'ƒ');
+		dest = dest.replace('ä', 'š');
+		dest = dest.replace('Ö', '‘');
+		dest = dest.replace('ö', '¨');
+		dest = dest.replace('Ü', '•');
+		dest = dest.replace('ü', '¬');
+		dest = dest.replace('ß', '–');
+		return dest;
+	}
 	
 	private TextDrawUtils()
 	{
