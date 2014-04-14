@@ -34,9 +34,9 @@ public class WlPageListDialog extends PageListDialog
 		}
 	}
 	
-	public static class WlListDialogBuilder extends AbstractWlPageListDialogBuilder<WlPageListDialog, WlListDialogBuilder>
+	public static class WlPageListDialogBuilder extends AbstractWlPageListDialogBuilder<WlPageListDialog, WlPageListDialogBuilder>
 	{
-		private WlListDialogBuilder(Player player, EventManager rootEventManager)
+		private WlPageListDialogBuilder(Player player, EventManager rootEventManager)
 		{
 			super(new WlPageListDialog(player, rootEventManager));
 		}
@@ -44,7 +44,7 @@ public class WlPageListDialog extends PageListDialog
 	
 	public static AbstractWlPageListDialogBuilder<?, ?> create(Player player, EventManager rootEventManager)
 	{
-		return new WlListDialogBuilder(player, rootEventManager);
+		return new WlPageListDialogBuilder(player, rootEventManager);
 	}
 	
 	
