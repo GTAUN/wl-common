@@ -22,9 +22,9 @@ import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
-public class AbstractListDialog extends ListDialog
+public class WlListDialog extends ListDialog
 {
-	protected AbstractListDialog(Player player, EventManager eventManager)
+	protected WlListDialog(Player player, EventManager eventManager)
 	{
 		super(player, eventManager);
 		init();
