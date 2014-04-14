@@ -5,7 +5,7 @@ import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.Event;
 import net.gtaun.util.event.EventManager;
 
-public abstract class ExtensibleListDialogShowEvent extends Event
+public abstract class ListDialogExtendEvent extends Event
 {
 	protected final Player player;
 	protected final Shoebill shoebill;
@@ -13,7 +13,7 @@ public abstract class ExtensibleListDialogShowEvent extends Event
 	protected final WlPageListDialog dialog;
 	
 	
-	public ExtensibleListDialogShowEvent(Player player, Shoebill shoebill, EventManager eventManager, WlPageListDialog dialog)
+	public ListDialogExtendEvent(Player player, Shoebill shoebill, EventManager eventManager, WlPageListDialog dialog)
 	{
 		this.player = player;
 		this.shoebill = shoebill;
