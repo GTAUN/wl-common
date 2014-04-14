@@ -27,9 +27,39 @@ import net.gtaun.util.event.EventManager;
 
 public class WlMsgboxDialog extends MsgboxDialog
 {
+	public static abstract class AbstractWlMsgboxDialogBuilder
+	<DialogType extends WlMsgboxDialog, DialogBuilderType extends AbstractWlMsgboxDialogBuilder<DialogType, DialogBuilderType>>
+	extends AbstractMsgboxDialogBuilder<DialogType, DialogBuilderType>
+	{
+		protected AbstractWlMsgboxDialogBuilder(DialogType dialog)
+		{
+			super(dialog);
+		}
+	}
+	
+	public static class WlMsgboxDialogBuilder extends AbstractWlMsgboxDialogBuilder<WlMsgboxDialog, WlMsgboxDialogBuilder>
+	{
+		private WlMsgboxDialogBuilder(Player player, EventManager rootEventManager)
+		{
+			super(new WlMsgboxDialog(player, rootEventManager));
+		}
+	}
+	
+	public static AbstractWlMsgboxDialogBuilder<?, ?> create(Player player, EventManager rootEventManager)
+	{
+		return new WlMsgboxDialogBuilder(player, rootEventManager);
+	}
+	
+	
 	protected String message;
 	
 
+	protected WlMsgboxDialog(Player player, EventManager rootEventManager)
+	{
+		super(player, rootEventManager);
+		init();
+	}
+	
 	public WlMsgboxDialog(Player player, EventManager rootEventManager, String caption, String message)
 	{
 		super(player, rootEventManager, caption, message);
