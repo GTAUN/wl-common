@@ -18,6 +18,8 @@
 
 package net.gtaun.wl.common.dialog;
 
+import java.util.function.Supplier;
+
 import net.gtaun.shoebill.common.dialog.DialogTextSupplier;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.shoebill.object.Player;
@@ -25,7 +27,60 @@ import net.gtaun.util.event.EventManager;
 
 public class WlInputDialog extends InputDialog
 {
-	protected String append;
+	@SuppressWarnings("unchecked")
+	public static abstract class AbstractWlInputDialogBuilder
+	<DialogType extends WlInputDialog, DialogBuilderType extends AbstractWlInputDialogBuilder<DialogType, DialogBuilderType>>
+	extends AbstractInputDialogBuilder<DialogType, DialogBuilderType>
+	{
+		protected AbstractWlInputDialogBuilder(DialogType dialog)
+		{
+			super(dialog);
+		}
+		
+		public DialogBuilderType appendText(String text)
+		{
+			dialog.setAppendText(text);
+			return (DialogBuilderType) this;
+		}
+		
+		public DialogBuilderType appendText(Supplier<String> textSupplier)
+		{
+			dialog.setAppendText(textSupplier);
+			return (DialogBuilderType) this;
+		}
+		
+		public DialogBuilderType appendText(DialogTextSupplier textSupplier)
+		{
+			dialog.setAppendText(textSupplier);
+			return (DialogBuilderType) this;
+		}
+	}
+	
+	public static class WlInputDialogBuilder extends AbstractWlInputDialogBuilder<WlInputDialog, WlInputDialogBuilder>
+	{
+		private WlInputDialogBuilder(Player player, EventManager rootEventManager)
+		{
+			super(new WlInputDialog(player, rootEventManager));
+		}
+		
+		private WlInputDialogBuilder(Player player, EventManager rootEventManager, boolean passwordMode)
+		{
+			super(new WlInputDialog(player, rootEventManager, passwordMode));
+		}
+	}
+	
+	public static AbstractInputDialogBuilder<?, ?> create(Player player, EventManager rootEventManager)
+	{
+		return new WlInputDialogBuilder(player, rootEventManager);
+	}
+	
+	public static AbstractInputDialogBuilder<?, ?> create(Player player, EventManager rootEventManager, boolean passwordMode)
+	{
+		return new WlInputDialogBuilder(player, rootEventManager, passwordMode);
+	}
+	
+	
+	private DialogTextSupplier appendTextSupplier;
 	
 	
 	public WlInputDialog(Player player, EventManager rootEventManager)
@@ -73,8 +128,24 @@ public class WlInputDialog extends InputDialog
 		});
 	}
 	
+	public void setAppendText(String text)
+	{
+		appendTextSupplier = (d) -> text;
+	}
+	
+	public void setAppendText(Supplier<String> textSupplier)
+	{
+		appendTextSupplier = (d) -> textSupplier.get();
+	}
+	
+	public void setAppendText(DialogTextSupplier textSupplier)
+	{
+		appendTextSupplier = textSupplier;
+	}
+	
 	protected void show(String text)
 	{
+		String append = appendTextSupplier.get(this);
 		if (append != null) super.show(text + "\n\n" + append);
 		else super.show(text);
 	}
