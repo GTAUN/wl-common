@@ -42,7 +42,7 @@ public class WlListDialog extends ListDialog
 		}
 	}
 	
-	public static AbstractListDialogBuilder<?, ?> create(Player player, EventManager rootEventManager)
+	public static AbstractWlListDialogBuilder<?, ?> create(Player player, EventManager rootEventManager)
 	{
 		return new WlListDialogBuilder(player, rootEventManager);
 	}

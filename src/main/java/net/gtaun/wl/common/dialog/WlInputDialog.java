@@ -69,12 +69,12 @@ public class WlInputDialog extends InputDialog
 		}
 	}
 	
-	public static AbstractInputDialogBuilder<?, ?> create(Player player, EventManager rootEventManager)
+	public static AbstractWlInputDialogBuilder<?, ?> create(Player player, EventManager rootEventManager)
 	{
 		return new WlInputDialogBuilder(player, rootEventManager);
 	}
 	
-	public static AbstractInputDialogBuilder<?, ?> create(Player player, EventManager rootEventManager, boolean passwordMode)
+	public static AbstractWlInputDialogBuilder<?, ?> create(Player player, EventManager rootEventManager, boolean passwordMode)
 	{
 		return new WlInputDialogBuilder(player, rootEventManager, passwordMode);
 	}
