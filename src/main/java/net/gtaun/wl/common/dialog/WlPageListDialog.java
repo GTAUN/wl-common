@@ -22,8 +22,32 @@ import net.gtaun.shoebill.common.dialog.PageListDialog;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
-public abstract class WlPageListDialog extends PageListDialog
+public class WlPageListDialog extends PageListDialog
 {
+	public static abstract class AbstractWlPageListDialogBuilder
+	<DialogType extends WlPageListDialog, DialogBuilderType extends AbstractPageListDialogBuilder<DialogType, DialogBuilderType>>
+	extends AbstractPageListDialogBuilder<DialogType, DialogBuilderType>
+	{
+		protected AbstractWlPageListDialogBuilder(DialogType dialog)
+		{
+			super(dialog);
+		}
+	}
+	
+	public static class WlListDialogBuilder extends AbstractWlPageListDialogBuilder<WlPageListDialog, WlListDialogBuilder>
+	{
+		private WlListDialogBuilder(Player player, EventManager rootEventManager)
+		{
+			super(new WlPageListDialog(player, rootEventManager));
+		}
+	}
+	
+	public static AbstractWlPageListDialogBuilder<?, ?> create(Player player, EventManager rootEventManager)
+	{
+		return new WlListDialogBuilder(player, rootEventManager);
+	}
+	
+	
 	protected WlPageListDialog(Player player, EventManager eventManager)
 	{
 		super(player, eventManager);
