@@ -25,7 +25,7 @@ import net.gtaun.util.event.EventManager;
 public class WlListDialog extends ListDialog
 {
 	public static abstract class AbstractWlListDialogBuilder
-	<DialogType extends WlListDialog, DialogBuilderType extends AbstractListDialogBuilder<DialogType, DialogBuilderType>>
+	<DialogType extends WlListDialog, DialogBuilderType extends AbstractWlListDialogBuilder<DialogType, DialogBuilderType>>
 	extends AbstractListDialogBuilder<DialogType, DialogBuilderType>
 	{
 		protected AbstractWlListDialogBuilder(DialogType dialog)
