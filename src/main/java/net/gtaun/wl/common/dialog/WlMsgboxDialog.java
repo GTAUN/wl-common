@@ -18,15 +18,33 @@
 
 package net.gtaun.wl.common.dialog;
 
-import net.gtaun.shoebill.common.dialog.ListDialog;
+import java.util.function.Supplier;
+
+import net.gtaun.shoebill.common.dialog.DialogTextSupplier;
+import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
-public class AbstractListDialog extends ListDialog
+public class WlMsgboxDialog extends MsgboxDialog
 {
-	protected AbstractListDialog(Player player, EventManager eventManager)
+	protected String message;
+	
+
+	public WlMsgboxDialog(Player player, EventManager rootEventManager, String caption, String message)
 	{
-		super(player, eventManager);
+		super(player, rootEventManager, caption, message);
+		init();
+	}
+	
+	public WlMsgboxDialog(Player player, EventManager rootEventManager, Supplier<String> captionSupplier, Supplier<String> messageSupplier)
+	{
+		super(player, rootEventManager, captionSupplier, messageSupplier);
+		init();
+	}
+	
+	public WlMsgboxDialog(Player player, EventManager rootEventManager, DialogTextSupplier captionSupplier, DialogTextSupplier messageSupplier)
+	{
+		super(player, rootEventManager, captionSupplier, messageSupplier);
 		init();
 	}
 	
@@ -37,5 +55,11 @@ public class AbstractListDialog extends ListDialog
 			player.playSound(1084, player.getLocation());
 			showParentDialog();
 		});
+	}
+	
+	@Override
+	public void show()
+	{
+		show(message);
 	}
 }

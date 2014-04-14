@@ -18,20 +18,16 @@
 
 package net.gtaun.wl.common.dialog;
 
-import net.gtaun.shoebill.common.dialog.ListDialog;
+import net.gtaun.shoebill.common.dialog.PageListDialog;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
-public class AbstractListDialog extends ListDialog
+public abstract class WlPageListDialog extends PageListDialog
 {
-	protected AbstractListDialog(Player player, EventManager eventManager)
+	protected WlPageListDialog(Player player, EventManager eventManager)
 	{
 		super(player, eventManager);
-		init();
-	}
-	
-	private void init()
-	{
+		setPageTurnHandler((d) -> player.playSound(1083, player.getLocation()));
 		setClickCancelHandler((d) ->
 		{
 			player.playSound(1084, player.getLocation());
