@@ -8,10 +8,10 @@ public abstract class ListDialogExtendEvent extends Event
 {
 	protected final Player player;
 	protected final EventManager eventManager;
-	protected final WlPageListDialog dialog;
+	protected final WlListDialog dialog;
 	
 	
-	public ListDialogExtendEvent(Player player, EventManager eventManager, WlPageListDialog dialog)
+	public ListDialogExtendEvent(Player player, EventManager eventManager, WlListDialog dialog)
 	{
 		this.player = player;
 		this.eventManager = eventManager;
@@ -28,7 +28,7 @@ public abstract class ListDialogExtendEvent extends Event
 		return eventManager;
 	}
 	
-	public WlPageListDialog getDialog()
+	public WlListDialog getDialog()
 	{
 		return dialog;
 	}
