@@ -27,6 +27,7 @@ import net.gtaun.util.event.EventManager;
 
 public class WlMsgboxDialog extends MsgboxDialog
 {
+	@SuppressWarnings("unchecked")
 	public static abstract class AbstractWlMsgboxDialogBuilder
 	<DialogType extends WlMsgboxDialog, DialogBuilderType extends AbstractWlMsgboxDialogBuilder<DialogType, DialogBuilderType>>
 	extends AbstractMsgboxDialogBuilder<DialogType, DialogBuilderType>
@@ -34,6 +35,24 @@ public class WlMsgboxDialog extends MsgboxDialog
 		protected AbstractWlMsgboxDialogBuilder(DialogType dialog)
 		{
 			super(dialog);
+		}
+		
+		public DialogBuilderType appendMessage(String append)
+		{
+			dialog.setAppendMessage(append);
+			return (DialogBuilderType) this;
+		}
+		
+		public DialogBuilderType appendMessage(Supplier<String> appendSupplier)
+		{
+			dialog.setAppendMessage(appendSupplier);
+			return (DialogBuilderType) this;
+		}
+		
+		public DialogBuilderType appendMessage(DialogTextSupplier appendSupplier)
+		{
+			dialog.setAppendMessage(appendSupplier);
+			return (DialogBuilderType) this;
 		}
 	}
 	
@@ -51,45 +70,65 @@ public class WlMsgboxDialog extends MsgboxDialog
 	}
 	
 	
-	protected String message;
+	private DialogTextSupplier appendMessageSupplier = null;
 	
 
 	protected WlMsgboxDialog(Player player, EventManager rootEventManager)
 	{
 		super(player, rootEventManager);
-		init();
 	}
 	
 	public WlMsgboxDialog(Player player, EventManager rootEventManager, String caption, String message)
 	{
 		super(player, rootEventManager, caption, message);
-		init();
 	}
 	
 	public WlMsgboxDialog(Player player, EventManager rootEventManager, Supplier<String> captionSupplier, Supplier<String> messageSupplier)
 	{
 		super(player, rootEventManager, captionSupplier, messageSupplier);
-		init();
 	}
 	
 	public WlMsgboxDialog(Player player, EventManager rootEventManager, DialogTextSupplier captionSupplier, DialogTextSupplier messageSupplier)
 	{
 		super(player, rootEventManager, captionSupplier, messageSupplier);
-		init();
 	}
 	
-	private void init()
+	public void setMessage(String message)
 	{
-		setClickCancelHandler((d) ->
-		{
-			player.playSound(1084, player.getLocation());
-			showParentDialog();
-		});
+		setMessage((d) -> appendMessageSupplier == null ? message : message + "\n\n" + appendMessageSupplier.get(d));
+	}
+
+	public void setMessage(Supplier<String> messageSupplier)
+	{
+		setMessage((d) -> appendMessageSupplier == null ? messageSupplier.get() : messageSupplier.get() + "\n\n" + appendMessageSupplier.get(d));
+	}
+	
+	public void setMessage(DialogTextSupplier messageSupplier)
+	{
+		setMessage((d) -> appendMessageSupplier == null ? messageSupplier.get(this) : messageSupplier.get(this) + "\n\n" + appendMessageSupplier.get(d));
+	}
+
+	public void setAppendMessage(String append)
+	{
+		appendMessageSupplier = (d) -> append;
+	}
+	
+	public void setAppendMessage(Supplier<String> appendSupplier)
+	{
+		appendMessageSupplier = (d) -> appendSupplier.get();
+	}
+	
+	public void setAppendMessage(DialogTextSupplier appendSupplier)
+	{
+		appendMessageSupplier = appendSupplier;
 	}
 	
 	@Override
-	public void show()
+	protected void onClickCancel()
 	{
-		show(message);
+		super.onClickCancel();
+		
+		player.playSound(1084);
+		showParentDialog();	
 	}
 }

@@ -86,46 +86,31 @@ public class WlInputDialog extends InputDialog
 	public WlInputDialog(Player player, EventManager rootEventManager)
 	{
 		super(player, rootEventManager);
-		init();
 	}
 
 	public WlInputDialog(Player player, EventManager rootEventManager, boolean passwordMode)
 	{
 		super(player, rootEventManager, passwordMode);
-		init();
 	}
 
 	public WlInputDialog(Player player, EventManager rootEventManager, String caption, String message)
 	{
 		super(player, rootEventManager, caption, message);
-		init();
 	}
 	
 	public WlInputDialog(Player player, EventManager rootEventManager, String caption, String message, boolean passwordMode)
 	{
 		super(player, rootEventManager, caption, message, passwordMode);
-		init();
 	}
 
 	public WlInputDialog(Player player, EventManager rootEventManager, DialogTextSupplier captionSupplier, DialogTextSupplier messageSupplier)
 	{
 		super(player, rootEventManager, captionSupplier, messageSupplier);
-		init();
 	}
 	
 	public WlInputDialog(Player player, EventManager rootEventManager, DialogTextSupplier captionSupplier, DialogTextSupplier messageSupplier, boolean passwordMode)
 	{
 		super(player, rootEventManager, captionSupplier, messageSupplier, passwordMode);
-		init();
-	}
-	
-	private void init()
-	{
-		setClickCancelHandler((d) ->
-		{
-			player.playSound(1084, player.getLocation());
-			showParentDialog();		
-		});
 	}
 	
 	public void setAppendText(String text)
@@ -148,5 +133,14 @@ public class WlInputDialog extends InputDialog
 		String append = appendTextSupplier.get(this);
 		if (append != null) super.show(text + "\n\n" + append);
 		else super.show(text);
+	}
+	
+	@Override
+	protected void onClickCancel()
+	{
+		super.onClickCancel();
+		
+		player.playSound(1084);
+		showParentDialog();	
 	}
 }

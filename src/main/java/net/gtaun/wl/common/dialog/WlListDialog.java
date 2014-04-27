@@ -51,15 +51,14 @@ public class WlListDialog extends ListDialog
 	protected WlListDialog(Player player, EventManager eventManager)
 	{
 		super(player, eventManager);
-		init();
 	}
 	
-	private void init()
+	@Override
+	protected void onClickCancel()
 	{
-		setClickCancelHandler((d) ->
-		{
-			player.playSound(1084, player.getLocation());
-			showParentDialog();
-		});
+		super.onClickCancel();
+		
+		player.playSound(1084);
+		showParentDialog();	
 	}
 }

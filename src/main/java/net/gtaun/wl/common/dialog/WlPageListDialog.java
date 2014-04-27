@@ -51,11 +51,21 @@ public class WlPageListDialog extends PageListDialog
 	protected WlPageListDialog(Player player, EventManager eventManager)
 	{
 		super(player, eventManager);
-		setPageTurnHandler((d) -> player.playSound(1083, player.getLocation()));
-		setClickCancelHandler((d) ->
-		{
-			player.playSound(1084, player.getLocation());
-			showParentDialog();
-		});
+	}
+	
+	@Override
+	public void onPageTurn()
+	{
+		super.onPageTurn();
+		player.playSound(1083);
+	}
+	
+	@Override
+	protected void onClickCancel()
+	{
+		super.onClickCancel();
+		
+		player.playSound(1084);
+		showParentDialog();	
 	}
 }

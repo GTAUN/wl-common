@@ -18,24 +18,23 @@
 
 package net.gtaun.wl.common.textdraw;
 
-import org.apache.commons.lang3.StringUtils;
-
-import net.gtaun.shoebill.SampObjectFactory;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.PlayerTextdraw;
 
+import org.apache.commons.lang3.StringUtils;
+
 public final class TextDrawUtils
 {
-	public static PlayerTextdraw createPlayerText(SampObjectFactory f, Player player, float x, float y, String text)
+	public static PlayerTextdraw createPlayerText(Player player, float x, float y, String text)
 	{
-		PlayerTextdraw textdraw = f.createPlayerTextdraw(player, x, (y-50)/1.075f+50, text);
+		PlayerTextdraw textdraw = PlayerTextdraw.create(player, x, (y-50)/1.075f+50, text);
 		return textdraw;
 	}
 	
-	public static PlayerTextdraw createPlayerTextBG(SampObjectFactory f, Player player, float x, float y, float w, float h)
+	public static PlayerTextdraw createPlayerTextBG(Player player, float x, float y, float w, float h)
 	{
 		int lines = Math.round((h - 5) / 5.0f);
-		PlayerTextdraw textdraw = f.createPlayerTextdraw(player, x+4, (y-50)/1.075f+50, StringUtils.repeat("~n~", lines));
+		PlayerTextdraw textdraw = PlayerTextdraw.create(player, x+4, (y-50)/1.075f+50, StringUtils.repeat("~n~", lines));
 		textdraw.setUseBox(true);
 		textdraw.setLetterSize(0.1f, 0.5f);
 		textdraw.setTextSize(x+w-4, h-7);
