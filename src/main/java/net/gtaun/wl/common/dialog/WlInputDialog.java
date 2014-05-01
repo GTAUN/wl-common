@@ -37,21 +37,21 @@ public class WlInputDialog extends InputDialog
 			super(dialog);
 		}
 		
-		public DialogBuilderType appendText(String text)
+		public DialogBuilderType appendMessage(String append)
 		{
-			dialog.setAppendText(text);
+			dialog.setAppendMessage(append);
 			return (DialogBuilderType) this;
 		}
 		
-		public DialogBuilderType appendText(Supplier<String> textSupplier)
+		public DialogBuilderType appendMessage(Supplier<String> appendSupplier)
 		{
-			dialog.setAppendText(textSupplier);
+			dialog.setAppendMessage(appendSupplier);
 			return (DialogBuilderType) this;
 		}
 		
-		public DialogBuilderType appendText(DialogTextSupplier textSupplier)
+		public DialogBuilderType appendMessage(DialogTextSupplier appendSupplier)
 		{
-			dialog.setAppendText(textSupplier);
+			dialog.setAppendMessage(appendSupplier);
 			return (DialogBuilderType) this;
 		}
 	}
@@ -80,7 +80,7 @@ public class WlInputDialog extends InputDialog
 	}
 	
 	
-	private DialogTextSupplier appendTextSupplier;
+	private DialogTextSupplier appendMessageSupplier;
 	
 	
 	public WlInputDialog(Player player, EventManager rootEventManager)
@@ -113,24 +113,24 @@ public class WlInputDialog extends InputDialog
 		super(player, rootEventManager, captionSupplier, messageSupplier, passwordMode);
 	}
 	
-	public void setAppendText(String text)
+	public void setAppendMessage(String append)
 	{
-		appendTextSupplier = (d) -> text;
+		appendMessageSupplier = (d) -> append;
 	}
 	
-	public void setAppendText(Supplier<String> textSupplier)
+	public void setAppendMessage(Supplier<String> appendSupplier)
 	{
-		appendTextSupplier = (d) -> textSupplier.get();
+		appendMessageSupplier = (d) -> appendSupplier.get();
 	}
 	
-	public void setAppendText(DialogTextSupplier textSupplier)
+	public void setAppendMessage(DialogTextSupplier appendSupplier)
 	{
-		appendTextSupplier = textSupplier;
+		appendMessageSupplier = appendSupplier;
 	}
 	
 	protected void show(String text)
 	{
-		String append = appendTextSupplier.get(this);
+		String append = appendMessageSupplier.get(this);
 		if (append != null) super.show(text + "\n\n" + append);
 		else super.show(text);
 	}
