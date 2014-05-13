@@ -128,6 +128,7 @@ public class WlInputDialog extends InputDialog
 		appendMessageSupplier = appendSupplier;
 	}
 	
+	@Override
 	protected void show(String text)
 	{
 		String append = appendMessageSupplier.get(this);
