@@ -96,19 +96,19 @@ public class WlMsgboxDialog extends MsgboxDialog
 	@Override
 	public void setMessage(String message)
 	{
-		setMessage((d) -> appendMessageSupplier == null ? message : message + "\n\n" + appendMessageSupplier.get(d));
+		super.setMessage((d) -> appendMessageSupplier == null ? message : message + "\n\n" + appendMessageSupplier.get(d));
 	}
 
 	@Override
 	public void setMessage(Supplier<String> messageSupplier)
 	{
-		setMessage((d) -> appendMessageSupplier == null ? messageSupplier.get() : messageSupplier.get() + "\n\n" + appendMessageSupplier.get(d));
+		super.setMessage((d) -> appendMessageSupplier == null ? messageSupplier.get() : messageSupplier.get() + "\n\n" + appendMessageSupplier.get(d));
 	}
 	
 	@Override
 	public void setMessage(DialogTextSupplier messageSupplier)
 	{
-		setMessage((d) -> appendMessageSupplier == null ? messageSupplier.get(this) : messageSupplier.get(this) + "\n\n" + appendMessageSupplier.get(d));
+		super.setMessage((d) -> appendMessageSupplier == null ? messageSupplier.get(this) : messageSupplier.get(this) + "\n\n" + appendMessageSupplier.get(d));
 	}
 
 	public void setAppendMessage(String append)
