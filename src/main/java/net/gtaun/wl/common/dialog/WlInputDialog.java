@@ -36,53 +36,53 @@ public class WlInputDialog extends InputDialog
 		{
 			super(dialog);
 		}
-		
+
 		public DialogBuilderType appendMessage(String append)
 		{
 			dialog.setAppendMessage(append);
 			return (DialogBuilderType) this;
 		}
-		
+
 		public DialogBuilderType appendMessage(Supplier<String> appendSupplier)
 		{
 			dialog.setAppendMessage(appendSupplier);
 			return (DialogBuilderType) this;
 		}
-		
+
 		public DialogBuilderType appendMessage(DialogTextSupplier appendSupplier)
 		{
 			dialog.setAppendMessage(appendSupplier);
 			return (DialogBuilderType) this;
 		}
 	}
-	
+
 	public static class WlInputDialogBuilder extends AbstractWlInputDialogBuilder<WlInputDialog, WlInputDialogBuilder>
 	{
 		private WlInputDialogBuilder(Player player, EventManager rootEventManager)
 		{
 			super(new WlInputDialog(player, rootEventManager));
 		}
-		
+
 		private WlInputDialogBuilder(Player player, EventManager rootEventManager, boolean passwordMode)
 		{
 			super(new WlInputDialog(player, rootEventManager, passwordMode));
 		}
 	}
-	
+
 	public static AbstractWlInputDialogBuilder<?, ?> create(Player player, EventManager rootEventManager)
 	{
 		return new WlInputDialogBuilder(player, rootEventManager);
 	}
-	
+
 	public static AbstractWlInputDialogBuilder<?, ?> create(Player player, EventManager rootEventManager, boolean passwordMode)
 	{
 		return new WlInputDialogBuilder(player, rootEventManager, passwordMode);
 	}
-	
-	
-	private DialogTextSupplier appendMessageSupplier;
-	
-	
+
+
+	private DialogTextSupplier appendMessageSupplier = (d) -> null;
+
+
 	public WlInputDialog(Player player, EventManager rootEventManager)
 	{
 		super(player, rootEventManager);
@@ -97,7 +97,7 @@ public class WlInputDialog extends InputDialog
 	{
 		super(player, rootEventManager, caption, message);
 	}
-	
+
 	public WlInputDialog(Player player, EventManager rootEventManager, String caption, String message, boolean passwordMode)
 	{
 		super(player, rootEventManager, caption, message, passwordMode);
@@ -107,27 +107,27 @@ public class WlInputDialog extends InputDialog
 	{
 		super(player, rootEventManager, captionSupplier, messageSupplier);
 	}
-	
+
 	public WlInputDialog(Player player, EventManager rootEventManager, DialogTextSupplier captionSupplier, DialogTextSupplier messageSupplier, boolean passwordMode)
 	{
 		super(player, rootEventManager, captionSupplier, messageSupplier, passwordMode);
 	}
-	
+
 	public void setAppendMessage(String append)
 	{
 		appendMessageSupplier = (d) -> append;
 	}
-	
+
 	public void setAppendMessage(Supplier<String> appendSupplier)
 	{
 		appendMessageSupplier = (d) -> appendSupplier.get();
 	}
-	
+
 	public void setAppendMessage(DialogTextSupplier appendSupplier)
 	{
 		appendMessageSupplier = appendSupplier;
 	}
-	
+
 	@Override
 	protected void show(String text)
 	{
@@ -135,13 +135,13 @@ public class WlInputDialog extends InputDialog
 		if (append != null) super.show(text + "\n\n" + append);
 		else super.show(text);
 	}
-	
+
 	@Override
 	protected void onClickCancel()
 	{
 		super.onClickCancel();
-		
+
 		player.playSound(1084);
-		showParentDialog();	
+		showParentDialog();
 	}
 }
